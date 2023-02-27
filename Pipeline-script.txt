@@ -1,13 +1,5 @@
 def img
 pipeline {
-// a.groovy
-import groovy.transform.Field
-
-@Field
-def LOADED_BUILD_NUMBER = "${env.BUILD_NUMBER}"
-
-return this
-       
     environment {
         registry = "392070207901.dkr.ecr.eu-central-1.amazonaws.com/eks" 
         
@@ -40,5 +32,13 @@ return this
             }
            }
           }
+          // Jenkinsfile
+node() {
+    checkout scm
+    def a = load('a.groovy')
+    echo("${env.BUILD_NUMBER}")
+    echo("${a.LOADED_BUILD_NUMBER}")
+}
+
       }
     }
