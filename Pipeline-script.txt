@@ -22,45 +22,12 @@ pipeline {
                 }
             }
         }
-
-
-
-        stage('Test - Run Docker Container on Jenkins node') {
-           steps {
-
-                sh label: '', script: "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
-          }
-        }
-
-        stage('Push To DockerHub') {
-            steps {
-                script {
-                    docker.withRegistry( 'https://registry.hub.docker.com ', registryCredential ) {
-                        dockerImage.push()
-                    }
+        
+        stage('push to ecr') {
+             steps {
+                 sh "aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 392070207901.dkr.ecr.eu-central-1.amazonaws.com"
+                 sh "docker push 392070207901.dkr.ecr.eu-central-1.amazonaws.com/eks:latest"
                 }
             }
-        }
-
-        stage('Deploy to Test Server') {
-            steps {
-                script {
-                    def stopcontainer = "docker stop ${JOB_NAME}"
-                    def delcontName = "docker rm ${JOB_NAME}"
-                    def delimages = 'docker image prune -a --force'
-                    def drun = "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
-                    println "${drun}"
-                    sshagent(['docker-test']) {
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${stopcontainer} "
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${delcontName}"
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${delimages}"
-
-                    // some block
-                        sh "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${drun}"
-                    }
-                }
-            }
-        }
-
       }
     }
