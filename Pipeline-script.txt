@@ -25,7 +25,9 @@ pipeline {
         stage('push to ecr') {
              steps {
                  sh "aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 392070207901.dkr.ecr.eu-central-1.amazonaws.com"
-                 sh "392070207901.dkr.ecr.eu-central-1.amazonaws.com/eks:latest"
+                 sh "docker build -t eks ."
+                 sh "docker tag eks:latest 392070207901.dkr.ecr.eu-central-1.amazonaws.com/eks:latest"
+                 sh "docker push 392070207901.dkr.ecr.eu-central-1.amazonaws.com/eks:latest"
                 }
             }
       }
