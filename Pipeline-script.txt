@@ -2,7 +2,7 @@ def img
 pipeline {
     environment {
          registry = "392070207901.dkr.ecr.eu-central-1.amazonaws.com/eks" 
-        registryCredential = '5efd218c-a2e5-4d23-a93e-b639f453cf38'
+        registryCredential = 'docker-hub-login'
         dockerImage = ''
     }
     agent any
