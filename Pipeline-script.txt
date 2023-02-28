@@ -28,7 +28,7 @@ pipeline {
 			echo '----------- Push Image to Amazon ECR ---------------'
 			script{
 				docker.withRegistry("${ECR_REPOSITORY_URI}","${ECR_REPOSITORY_CRED}"){
-				   app.push("${env.tag}")
+				   myapp.push("${env.tag}")
 				}
 			}
 		}
