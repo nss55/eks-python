@@ -26,7 +26,7 @@ pipeline {
         stage('Push To DockerHub') {
             steps {
                 script {
-                    docker.withRegistry( 'https://hub.docker.com/repository/create?namespace=abhishekkurmi ', registryCredential ) {
+                    docker.withRegistry( 'https://hub.docker.com/', registryCredential ) {
                         dockerImage.push()
                     }
 
