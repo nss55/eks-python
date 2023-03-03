@@ -37,7 +37,7 @@ pipeline {
 
       stage('Deploy to eks'){
           steps {
-	     withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+	     withKubeConfig(caCertificate: '', clusterName: 'demo-eks', contextName: '', credentialsId: 'K8S', namespace: 'demo-eks', restrictKubeConfigAccess: false, serverUrl: 'https://D1B09302B900A0AEBC4AF3A5C15FC96B.gr7.us-east-1.eks.amazonaws.com') {
                 sh "kubectl apply -f eks-deploy-k8s.yaml"
             }
           }
