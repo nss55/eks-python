@@ -1,7 +1,7 @@
 def img
 pipeline {
     environment {
-         registry = "392070207901.dkr.ecr.eu-central-1.amazonaws.com/eks" 
+         registry = "392070207901.dkr.ecr.us-east-1.amazonaws.com/eks" 
         registryCredential = 'docker-hub-login'
         dockerImage = ''
     }
@@ -27,7 +27,7 @@ pipeline {
 		steps {
 			echo '----------- Push Image to Amazon ECR ---------------'
 			script{
-				docker.withRegistry('https://392070207901.dkr.ecr.eu-central-1.amazonaws.com/eks', 'ecr:eu-central-1:aws-credentials'){
+				docker.withRegistry('https://392070207901.dkr.ecr.us-east-1.amazonaws.com/eks', 'ecr:us-east-1:aws-credentials'){
 				   myapp.push("${env.tag}")
 				}
 			}
