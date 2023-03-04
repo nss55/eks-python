@@ -1,0 +1,48 @@
+def img
+pipeline {
+    environment {
+         registry = "392070207901.dkr.ecr.us-east-1.amazonaws.com/eks" 
+        registryCredential = 'docker-hub-login'
+        dockerImage = ''
+    }
+    agent any
+    stages {
+        stage('checkout') {
+            steps {
+                git 'https://github.com/Abhishek-kurmi/EKS_Python.git'
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                script {
+                    img = registry + ":${env.BUILD_ID}"
+                    println ("${img}")
+                    myapp = docker.build("${img}")
+                }
+            }
+        }
+
+       stage('Push Image to Amazon ECR') {
+		steps {
+			echo '----------- Push Image to Amazon ECR ---------------'
+			script{
+				docker.withRegistry('https://392070207901.dkr.ecr.us-east-1.amazonaws.com/eks', 'ecr:us-east-1:aws-credentials'){
+				   myapp.push("${env.tag}")
+				}
+			}
+		}
+        
+        }
+
+      stage('Deploy to eks'){
+          steps {
+	     withKubeConfig(caCertificate: '', clusterName: 'demo-eks', contextName: '', credentialsId: 'K8S', namespace: 'default', restrictKubeConfigAccess: false, serverUrl: 'https://oidc.eks.us-east-2.amazonaws.com/id/4D2E25BF52E97B85E641E9F919F9C4B3') {
+                bat 'kubectl apply -f $WORKSPACE/eks/eks-deploy-k8s.yaml'
+            }
+          }
+                 
+        }
+
+      }
+    }
