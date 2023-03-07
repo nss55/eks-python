@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: EKS_Python
+  name: eks_python
 spec:
   selector:
     matchLabels:
-      app: EKS_Python
+      app: eks_python
   replicas: 2
   template: 
     metadata:
       labels:
-        myapp: EKS_Python
+        myapp: eks_python
     spec:
       containers:
-      - name: EKS_Python
-        image: 392070207901.dkr.ecr.eu-central-1.amazonaws.com/eks:null
+      - name: eks_python
+        image: 8ec24d3f97c1632d6f640493722bc9c66ceb6f155dc04488720beb2e248a41db
         ports:
         - containerPort: 5000
         imagePullPolicy: Always
@@ -22,11 +22,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: EKS_Python
+  name: eks_python
 spec:
   type: LoadBalancer
   selector:
-    app: EKS_Python
+    app: eks_python
   ports:
   - name: http
     protocol: TCP
