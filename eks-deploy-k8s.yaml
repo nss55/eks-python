@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: myapps/v1
 kind: Deployment
 metadata:
   name: eks-python
@@ -6,15 +6,15 @@ spec:
   selector:
     matchLabels:
       app: eks-python
-  replicas: 2
+  replicas: 1 
   template: 
     metadata:
       labels:
-        myapp: eks-python
+        app: eks-python
     spec:
       containers:
       - name: eks-python
-        image: 8ec24d3f97c1632d6f640493722bc9c66ceb6f155dc04488720beb2e248a41db
+        image: 303a3ffe9e63dfaaac48bd1b935a568bbd26f59d9f6b15b3cade5a52ce36b19b
         ports:
         - containerPort: 5000
         imagePullPolicy: Always
