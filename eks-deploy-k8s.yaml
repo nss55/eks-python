@@ -1,5 +1,5 @@
 apiVersion: myapps/v1
-kind: Deployment
+kind: Ingress
 metadata:
   name: eks-python
 spec:
