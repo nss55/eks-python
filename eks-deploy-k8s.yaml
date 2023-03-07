@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eks_python
+  name: eks-python
 spec:
   selector:
     matchLabels:
-      app: eks_python
+      app: eks-python
   replicas: 2
   template: 
     metadata:
       labels:
-        myapp: eks_python
+        myapp: eks-python
     spec:
       containers:
-      - name: eks_python
+      - name: eks-python
         image: 8ec24d3f97c1632d6f640493722bc9c66ceb6f155dc04488720beb2e248a41db
         ports:
         - containerPort: 5000
@@ -22,11 +22,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: eks_python
+  name: eks-python
 spec:
   type: LoadBalancer
   selector:
-    app: eks_python
+    app: eks-python
   ports:
   - name: http
     protocol: TCP
