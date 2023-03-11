@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: eks-python
-        image: 303a3ffe9e63dfaaac48bd1b935a568bbd26f59d9f6b15b3cade5a52ce36b19b
+        image: 57c96ca7b552be3b69b57607c7ae406ae9f209fca2c69801189e79f1c1e5d14b
         ports:
         - containerPort: 5000
         imagePullPolicy: Always
