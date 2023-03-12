@@ -1,0 +1,23 @@
+---
+- name: Update Python Application
+  hosts: your_host
+  become: yes
+
+  tasks:
+  - name: Stop the application service
+    systemd:
+      name: your_app_service_name
+      state: stopped
+    ignore_errors: yes
+
+  - name: Update the application
+    pip:
+      name: your_app
+      state: latest
+    register: app_update_result
+
+  - name: Start the application service
+    systemd:
+      name: your_app_service_name
+      state: started
+    when: app_update_result.changed
