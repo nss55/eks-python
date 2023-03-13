@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                git 'https://github.com/Abhishek-kurmi/EKS_Python.git'
+                git 'https://github.com/nss55/eks-python.git/'
             }
         }
 
