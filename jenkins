@@ -27,7 +27,7 @@ pipeline {
 		steps {
 			echo '----------- Push Image to Amazon ECR ---------------'
 			script{
-				docker.withRegistry('https://392070207901.dkr.ecr.us-east-1.amazonaws.com/eks', 'ecr:us-east-1:aws-credentials'){
+				docker.withRegistry('https://426824955559.dkr.ecr.us-east-1.amazonaws.com/eks_deploy', 'ecr:us-east-1:aws-credentials'){
 				   myapp.push("${env.tag}")
 				}
 			}
