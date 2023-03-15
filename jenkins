@@ -1,7 +1,7 @@
 def img
 pipeline {
     environment {
-         registry = "392070207901.dkr.ecr.us-east-1.amazonaws.com/eks" 
+         registry = "426824955559.dkr.ecr.us-east-1.amazonaws.com/eks_deploy" 
         registryCredential = 'docker-hub-login'
         dockerImage = ''
     }
